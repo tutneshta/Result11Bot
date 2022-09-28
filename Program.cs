@@ -31,6 +31,8 @@ namespace Result11Bot
         {
             services.AddTransient<DefaultMessageController>();
             services.AddTransient<TextMessageController>();
+
+
             services.AddTransient<InlineKeyboardController>();
 
             services.AddSingleton<ITelegramBotClient>(provider =>

@@ -11,7 +11,7 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Result11Bot.Controllers
 {
-    internal class TextMessageController
+    class TextMessageController
     {
         private readonly ITelegramBotClient _telegramClient;
 
@@ -20,14 +20,16 @@ namespace Result11Bot.Controllers
             _telegramClient = telegramBotClient;
         }
 
+
         public async Task Handle(Message message, CancellationToken ct)
         {
             var buttons = new List<InlineKeyboardButton[]>();
-            if (message.Text != "/start" && Button.Text != "sum" && Button.Text != "len")
+            if (message.Text != "/start" && Button.Text != "sum" && Button.Text != "len" && Button.Text != "back")
             {
                 await _telegramClient.SendTextMessageAsync(message.Chat.Id,
                     $"Нажмите на одну из кнопок", cancellationToken: ct);
             }
+
 
             if (message.Text == "/start")
             {
@@ -43,6 +45,7 @@ namespace Result11Bot.Controllers
                     replyMarkup: new InlineKeyboardMarkup(buttons));
             }
 
+
             if (message.Text != "/start" && Button.Text == "len")
             {
                 var lenghtText = LenSum.GetLengthText(message.Text);
@@ -50,6 +53,7 @@ namespace Result11Bot.Controllers
                 await _telegramClient.SendTextMessageAsync(message.Chat.Id,
                     $"Количество символов: {lenghtText}", cancellationToken: ct);
             }
+
 
             if (message.Text != "/start" && CheckAndSumNumber.CheckNumber(message.Text) == true &&
                 Button.Text == "sum")
@@ -62,9 +66,6 @@ namespace Result11Bot.Controllers
             {
                 await _telegramClient.SendTextMessageAsync(message.Chat.Id,
                     $"некорректный ввод. Введите числа через пробел!!! ", cancellationToken: ct);
-            }
-
-            {
             }
         }
     }

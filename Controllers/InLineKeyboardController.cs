@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Result11Bot.Controllers
 {
@@ -25,22 +26,66 @@ namespace Result11Bot.Controllers
                 return;
             }
 
-            if (callbackQuery.Data == "len")
+            switch (callbackQuery.Data)
             {
-                Button.Text = callbackQuery.Data;
+                case "len":
 
-                await _telegramClient.SendTextMessageAsync(callbackQuery.From.Id,
-                    $"{Environment.NewLine}Введите слово или фразу", cancellationToken: ct,
-                    parseMode: ParseMode.Html);
-            }
-            else
-            {
-                Button.Text = callbackQuery.Data;
+                {
+                    var buttons = new List<InlineKeyboardButton[]>();
+                    Button.Text = callbackQuery.Data;
+                    Console.WriteLine($"нажата клавиша {Button.Text}");
+                    await _telegramClient.SendTextMessageAsync(callbackQuery.From.Id,
+                        $"{Environment.NewLine}Введите слово или фразу", cancellationToken: ct,
+                        parseMode: ParseMode.Html);
 
-                await _telegramClient.SendTextMessageAsync(callbackQuery.From.Id,
-                    $"{Environment.NewLine}Введите числа через пробел", cancellationToken: ct,
-                    parseMode: ParseMode.Html);
+
+                    break;
+                }
+                case "back":
+                {
+                    Button.Text = callbackQuery.Data;
+                    //Console.WriteLine($"нажата клавиша {Button.Text}");
+                    await _telegramClient.SendTextMessageAsync(callbackQuery.From.Id,
+                        $"{Environment.NewLine}что то происходит", cancellationToken: ct,
+                        parseMode: ParseMode.Html);
+
+                    break;
+                }
+                case "sum":
+                {
+                    Button.Text = callbackQuery.Data;
+                    Console.WriteLine($"нажата клавиша {Button.Text}");
+                    await _telegramClient.SendTextMessageAsync(callbackQuery.From.Id,
+                        $"{Environment.NewLine}Введите числа через пробел", cancellationToken: ct,
+                        parseMode: ParseMode.Html);
+                    break;
+                }
             }
+
+            //if (callbackQuery.Data == "len")
+            //{
+            //    Button.Text = callbackQuery.Data;
+
+            //    await _telegramClient.SendTextMessageAsync(callbackQuery.From.Id,
+            //        $"{Environment.NewLine}Введите слово или фразу", cancellationToken: ct,
+            //        parseMode: ParseMode.Html);
+            //}
+            //else if (callbackQuery.Data == "sum")
+            //{
+            //    Button.Text = callbackQuery.Data;
+
+            //    await _telegramClient.SendTextMessageAsync(callbackQuery.From.Id,
+            //        $"{Environment.NewLine}Введите числа через пробел", cancellationToken: ct,
+            //        parseMode: ParseMode.Html);
+            //}
+            //else if (callbackQuery.Data == "len1")
+            //{
+            //    Button.Text = callbackQuery.Data;
+            //    Console.WriteLine($"нажата клавиша {Button.Text}");
+            //    await _telegramClient.SendTextMessageAsync(callbackQuery.From.Id,
+            //        $"{Environment.NewLine}что то происходит", cancellationToken: ct,
+            //        parseMode: ParseMode.Html);
+            //}
         }
     }
 }

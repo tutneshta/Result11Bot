@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using Result11Bot;
 using Result11Bot.Controllers;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Extensions.Polling;
@@ -21,15 +21,18 @@ namespace VoiceTexterBot
 
         private readonly DefaultMessageController _defaultMessageController;
 
+
         public Bot(
             ITelegramBotClient telegramClient,
             InlineKeyboardController inlineKeyboardController,
             TextMessageController textMessageController,
-            DefaultMessageController defaultMessageController)
+            DefaultMessageController defaultMessageController
+        )
         {
             _telegramClient = telegramClient;
             _inlineKeyboardController = inlineKeyboardController;
             _textMessageController = textMessageController;
+
 
             _defaultMessageController = defaultMessageController;
         }
